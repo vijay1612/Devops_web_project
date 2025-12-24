@@ -4,11 +4,12 @@ phases:
   install:
     runtime-versions:
       java: corretto8
-  pre_build:
+pre_build:
   commands:
     - echo Initializing environment
     - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain devops --domain-owner 406202011526 --region us-east-1 --query authorizationToken --output text`
     - aws codeartifact login --tool maven --repository Devops_cicd --domain devops --domain-owner 406202011526 --region us-east-1
+
 
 
   build:
