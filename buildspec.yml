@@ -9,7 +9,9 @@ phases:
     commands:
       - echo "Initializing environment"
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain devops --domain-owner 406202011526 --region us-east-1 --query authorizationToken --output text)
-      - aws codeartifact login --tool maven-repository --repository Devops_cicd --domain devops --domain-owner 406202011526 --region us-east-1
+      - export CODEARTIFACT_REPOSITORY_URL=$(aws codeartifact get-repository-endpoint --domain devops --domain-owner 406202011526 --repository Devops_cicd --format maven --region us-east-1 --query repositoryEndpoint --output text)
+      - echo "Logging in to CodeArtifact"
+      - aws codeartifact login --tool maven --domain devops --domain-owner 406202011526 --repository Devops_cicd --region us-east-1
 
   build:
     commands:
